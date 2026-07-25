@@ -14,7 +14,7 @@ export function CartPage({ cart, updateQty, removeFromCart, cartSubtotal, go }: 
   if (!cart.length) {
     return (
       <div style={{ textAlign: "center", padding: "120px 24px 80px", maxWidth: 480, margin: "0 auto" }}>
-        <div style={{ color: "var(--paper-edge)", marginBottom: 18 }}>{I.bag}</div>
+        <div style={{ color: "var(--paper-edge)", marginBottom: 18, display: "flex", justifyContent: "center" }}>{I.bag}</div>
         <h2 style={{
           fontFamily: "var(--font-fraunces), serif",
           fontVariationSettings: '"SOFT" 30, "WONK" 0',
@@ -66,8 +66,7 @@ export function CartPage({ cart, updateQty, removeFromCart, cartSubtotal, go }: 
               fontFamily: "var(--font-fraunces), serif",
               fontVariationSettings: '"SOFT" 30',
               fontSize: 22, fontWeight: 500, color: "var(--ink)",
-              letterSpacing: "-0.012em",
-              overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+              letterSpacing: "-0.012em", lineHeight: 1.2,
             }}>{it.name}</div>
             <div style={{ fontSize: 12, color: "var(--ink-soft)", marginTop: 4, fontStyle: "italic" }}>{it.weight} · {rp(it.price)}</div>
           </div>

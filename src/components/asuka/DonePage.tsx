@@ -15,7 +15,12 @@ export function DonePage({ go, oid }: { go: (p: string) => void; oid: string | n
       <div style={{ marginBottom: 32, display: "flex", justifyContent: "center" }}>
         <Logo variant="dark" height={64} />
       </div>
-      <div style={{ fontSize: 64, color: "var(--copper)", marginBottom: 8, fontWeight: 300, lineHeight: 1 }}>✓</div>
+      <div style={{ marginBottom: 16, display: "flex", justifyContent: "center" }}>
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" role="img" aria-label="Order placed">
+          <circle cx="32" cy="32" r="30" stroke="var(--copper)" strokeWidth="1.5" />
+          <path d="M20 33.5 28.5 42 44 24" stroke="var(--copper)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </div>
       <h2 style={{
         fontFamily: "var(--font-fraunces), serif",
         fontVariationSettings: '"SOFT" 60, "WONK" 1',

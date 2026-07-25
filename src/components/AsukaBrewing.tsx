@@ -2,9 +2,8 @@
 import { useState, useEffect } from "react";
 import { fetchProducts } from "@/lib/products";
 import { compressImageForUpload } from "@/lib/format";
-import { SHIP_OPTIONS, WHATSAPP_NUMBER } from "@/lib/constants";
+import { SHIP_OPTIONS, WHATSAPP_NUMBER, GOOGLE_MAPS_PLACE_URL } from "@/lib/constants";
 import type { Product, CartItem, CustomerForm } from "@/lib/types";
-import { Logo } from "./asuka/shared";
 import { HomePage } from "./asuka/HomePage";
 import { CartPage } from "./asuka/CartPage";
 import { CheckoutPage } from "./asuka/CheckoutPage";
@@ -231,36 +230,74 @@ export default function AsukaBrewing() {
       {/* FOOTER */}
       <footer style={{
         background: "var(--ink)", color: "var(--cream)",
-        padding: "clamp(48px, 9vw, 80px) clamp(20px, 5vw, 56px) clamp(28px, 5vw, 40px)",
-        textAlign: "center",
+        padding: "clamp(56px, 9vw, 96px) clamp(20px, 5vw, 56px) clamp(24px, 4vw, 36px)",
       }}>
-        <Logo variant="cream" height={64} />
-        <p style={{
-          fontSize: 11, color: "rgba(251,247,237,0.62)",
-          letterSpacing: "0.1em", lineHeight: 1.8, marginTop: 24,
-        }}>Pejaten Raya 14, Jakarta Selatan<br />Roasted in small batches · Shipped from Pejaten</p>
-        <div style={{ marginTop: 32, display: "flex", justifyContent: "center", gap: "clamp(16px, 4vw, 32px)", flexWrap: "wrap" }}>
-          <a href="https://instagram.com/asukabrewspace" target="_blank" rel="noopener noreferrer" style={{
-            color: "rgba(251,247,237,0.58)",
-            fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase",
-            textDecoration: "none", fontWeight: 600,
-          }}>Instagram</a>
-          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" style={{
-            color: "rgba(251,247,237,0.58)",
-            fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase",
-            textDecoration: "none", fontWeight: 600,
-          }}>WhatsApp</a>
-          <button type="button" onClick={() => go("track")} style={{
-            color: "rgba(251,247,237,0.58)",
-            fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase",
-            cursor: "pointer", fontWeight: 600,
-            background: "none", border: "none", padding: 0, fontFamily: "inherit",
-          }}>Track Order</button>
+        <div style={{ maxWidth: 1320, margin: "0 auto" }}>
+          {/* Brand mark */}
+          <div className="f-brand" style={{ marginBottom: "clamp(28px, 5vw, 48px)" }}>
+            <img
+              src="/images/logo-cream.png"
+              alt="Asuka Brewing & Space"
+              className="f-brand-logo"
+              style={{ height: 44, width: "auto", display: "block", marginBottom: 14 }}
+            />
+            <div style={{
+              fontSize: 10, letterSpacing: "0.42em", textTransform: "uppercase",
+              color: "var(--gold)", fontWeight: 600,
+            }}>Pejaten, Jakarta Selatan</div>
+          </div>
+
+          {/* Columns */}
+          <div className="f-cols" style={{
+            display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr",
+            gap: "clamp(28px, 5vw, 64px)",
+            paddingTop: "clamp(28px, 4vw, 44px)",
+            borderTop: "1px solid rgba(251,247,237,0.14)",
+          }}>
+            <div>
+              <div className="f-head">Visit</div>
+              <p style={{ fontSize: 13, lineHeight: 1.8, color: "rgba(251,247,237,0.72)", marginBottom: 12 }}>
+                Pejaten Raya 14, Jakarta Selatan<br />Open daily · 8.00 — 01.00 WIB
+              </p>
+              <a className="f-link" href={GOOGLE_MAPS_PLACE_URL} target="_blank" rel="noopener noreferrer">Get directions →</a>
+            </div>
+            <div>
+              <div className="f-head">Follow</div>
+              <div className="f-follow" style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}>
+                <a className="f-link" href="https://instagram.com/asukabrewspace" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a className="f-link" href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <button type="button" className="f-link f-btn" onClick={() => go("track")}>Track order</button>
+              </div>
+            </div>
+            <div>
+              <div className="f-head">Roastery notes</div>
+              <p style={{ fontSize: 13, lineHeight: 1.8, color: "rgba(251,247,237,0.72)", fontStyle: "italic" }}>
+                Roasted in small batches at our Pejaten space. Shipped across Indonesia, or pick up at the bar.
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="f-bottom">
+            <span>© 2026 Asuka Brewing &amp; Space</span>
+            <span>Slow coffee, consistently</span>
+          </div>
         </div>
-        <div style={{
-          marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(251,247,237,0.1)",
-          fontSize: 10, letterSpacing: "0.18em", color: "rgba(251,247,237,0.4)", textTransform: "uppercase",
-        }}>© 2026 Asuka Brewing &amp; Space</div>
+        <style>{`
+          .f-head { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 16px; }
+          .f-link { color: rgba(251,247,237,0.62); font-size: 13px; letter-spacing: 0.04em; text-decoration: none; transition: color 0.2s; width: fit-content; }
+          .f-link:hover { color: var(--gold); }
+          .f-btn { background: none; border: none; padding: 0; cursor: pointer; font-family: inherit; }
+          .f-bottom { margin-top: clamp(36px, 6vw, 56px); padding-top: 20px; border-top: 1px solid rgba(251,247,237,0.1); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,247,237,0.4); }
+          @media (max-width: 720px) {
+            .f-brand { text-align: center; }
+            .f-brand .f-brand-logo { margin-left: auto; margin-right: auto; }
+            .f-cols { grid-template-columns: 1fr !important; text-align: center; }
+            .f-cols .f-follow { align-items: center !important; }
+            .f-cols .f-link { margin: 0 auto; }
+            .f-bottom { justify-content: center; text-align: center; }
+          }
+        `}</style>
       </footer>
     </div>
   );

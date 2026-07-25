@@ -136,11 +136,11 @@ export function HomePage({ filter, setFilter, addToCart, products, productsLoadi
             alt="Coffee beans"
             fill
             sizes="(max-width: 880px) 100vw, 45vw"
-            style={{ objectFit: "cover", opacity: 0.55 }}
+            style={{ objectFit: "cover", opacity: 0.8 }}
           />
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(180deg, rgba(14,9,5,0.7), rgba(8,5,3,0.95))",
+            background: "linear-gradient(180deg, rgba(14,9,5,0.5), rgba(8,5,3,0.82))",
           }} />
 
           {/* Stamp: ring text spins, center mark stays upright */}
@@ -156,14 +156,14 @@ export function HomePage({ filter, setFilter, addToCart, products, productsLoadi
             <div className="stamp-ring" style={{
               position: "absolute", inset: 0,
               borderRadius: "50%",
-              border: "1px solid rgba(232,184,112,0.42)",
+              border: "1px solid rgba(232,184,112,0.65)",
               animation: "stampSpin 32s linear infinite",
             }}>
               <svg viewBox="0 0 240 240" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
                 <defs>
                   <path id="stampCircle" d="M 120, 120 m -100, 0 a 100,100 0 1,1 200,0 a 100,100 0 1,1 -200,0" fill="none" />
                 </defs>
-                <text fill="#e8b870" fontFamily="Inter" fontSize="11" letterSpacing="3" fontWeight="600">
+                <text fill="#f0c584" fontFamily="Inter" fontSize="11" letterSpacing="3" fontWeight="600">
                   <textPath href="#stampCircle">ASUKA · BREWING &amp; SPACE · EST 2025 </textPath>
                 </text>
               </svg>
@@ -419,9 +419,9 @@ export function HomePage({ filter, setFilter, addToCart, products, productsLoadi
             { day: "Sat — Sun", time: "8 am — 1 am" },
             { day: "Public holidays", time: "Open as usual", closed: false },
           ].map((row) => (
-            <div key={row.day} className="reveal" style={{
+            <div key={row.day} className="reveal hours-row" style={{
               padding: "24px 0", borderBottom: "1px solid var(--paper)",
-              display: "grid", gridTemplateColumns: "120px 1fr", gap: 32, alignItems: "baseline",
+              display: "grid", gridTemplateColumns: "170px 1fr", gap: 32, alignItems: "baseline",
             }}>
               <span style={{ fontSize: 11, letterSpacing: "0.28em", textTransform: "uppercase", color: "var(--copper)", fontWeight: 700 }}>{row.day}</span>
               <span style={{
@@ -452,6 +452,8 @@ export function HomePage({ filter, setFilter, addToCart, products, productsLoadi
         @media (max-width: 560px) {
           .hero-grid > div { height: 64vh; min-height: 460px; }
           .hero-grid > div:last-child { height: 44vh; min-height: 340px; }
+          /* Hours rows stack: label above the time so neither wraps */
+          .hours-row { grid-template-columns: 1fr !important; row-gap: 8px !important; }
         }
       `}</style>
     </div>

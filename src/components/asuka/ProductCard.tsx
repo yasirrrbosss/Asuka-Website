@@ -5,9 +5,11 @@ import { isInStock, type Product } from "@/lib/types";
 import { ProdImg } from "./shared";
 
 /**
- * Atmospheric (Variant C) product card. Photo dominates; copy overlays the
- * bottom of the photo with a dark gradient so cards read as cohesive
- * "tile" units. Hover lifts + saturation bump + photo zoom.
+ * Editorial product card. The photo sits in a square tile (square so packaging
+ * artwork with baked-in typography is never cropped mid-letter), and the copy
+ * lives BELOW the image on the page surface — overlaying text on packaging
+ * shots collided with the artwork's own type. Hover: photo zoom + card lift +
+ * arrow slide.
  */
 export function ProductCard({ product, addToCart, delay }: { product: Product; addToCart: (p: Product, q: number) => void; delay: number }) {
   const [visible, setVisible] = useState(false);
@@ -53,8 +55,9 @@ export function ProductCard({ product, addToCart, delay }: { product: Product; a
         position: "relative",
       }}
     >
+      {/* Image tile */}
       <div style={{
-        aspectRatio: "5/6",
+        aspectRatio: "1/1",
         background: "#3a2818",
         overflow: "hidden",
         position: "relative",
@@ -65,7 +68,7 @@ export function ProductCard({ product, addToCart, delay }: { product: Product; a
           filter: soldOut ? "grayscale(0.4)" : (hovered ? "saturate(1.1)" : "saturate(0.95)"),
           transition: "transform 0.7s var(--ease-out-soft), filter 0.4s",
         }}>
-          <ProdImg src={product.img} cat={product.cat} style={{ aspectRatio: "5/6", height: "100%" }} />
+          <ProdImg src={product.img} cat={product.cat} style={{ aspectRatio: "1/1", height: "100%" }} />
         </div>
 
         {soldOut && (
@@ -77,42 +80,51 @@ export function ProductCard({ product, addToCart, delay }: { product: Product; a
           }}>Sold Out</div>
         )}
 
-        {/* Bottom-aligned copy overlay */}
+        {/* Pack size — variants with identical artwork (e.g. 200gr vs 1 KG)
+            stay distinguishable without opening the cart */}
+        {product.weight && (
+          <div style={{
+            position: "absolute", top: 18, right: 18, zIndex: 2,
+            background: "rgba(240,235,224,0.92)", color: "var(--ink)",
+            fontSize: 9, fontWeight: 700, letterSpacing: "0.18em",
+            textTransform: "uppercase", padding: "5px 12px",
+          }}>{product.weight}</div>
+        )}
+      </div>
+
+      {/* Copy — on the page surface, clear of the artwork */}
+      <div style={{ paddingTop: 20 }}>
         <div style={{
-          position: "absolute", bottom: 0, left: 0, right: 0,
-          padding: "20px 22px 22px",
-          background: "linear-gradient(to top, rgba(8,5,3,0.95) 0%, rgba(8,5,3,0.85) 35%, rgba(8,5,3,0.55) 65%, rgba(8,5,3,0.15) 90%, transparent 100%)",
-          color: "var(--cream)",
+          fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase",
+          color: "var(--copper)", fontWeight: 700, marginBottom: 8,
+        }}>{product.cat} · {product.origin}</div>
+        <h3 style={{
+          fontFamily: "var(--font-fraunces), serif",
+          fontVariationSettings: '"SOFT" 30, "WONK" 0',
+          fontSize: "clamp(22px, 4.5vw, 28px)", fontWeight: 450, letterSpacing: "-0.012em",
+          color: "var(--ink)", marginBottom: 6, lineHeight: 1.12,
+        }}>{product.name}</h3>
+        <p style={{
+          fontSize: 13, color: "var(--ink-soft)", fontStyle: "italic", marginBottom: 16,
+          lineHeight: 1.5,
         }}>
-          <div style={{
-            fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase",
-            color: "var(--gold)", fontWeight: 600, marginBottom: 6,
-          }}>{product.cat} · {product.origin}</div>
-          <h3 style={{
+          {product.notes}
+        </p>
+        <div style={{
+          display: "flex", justifyContent: "space-between", alignItems: "baseline",
+          paddingTop: 14, borderTop: "1px solid var(--paper-edge)",
+        }}>
+          <span style={{
             fontFamily: "var(--font-fraunces), serif",
-            fontVariationSettings: '"SOFT" 30, "WONK" 0',
-            fontSize: "clamp(20px, 4.5vw, 26px)", fontWeight: 450, letterSpacing: "-0.012em",
-            color: "var(--cream)", marginBottom: 4, lineHeight: 1.1,
-          }}>{product.name}</h3>
-          <p style={{ fontSize: 12, color: "rgba(251,247,237,0.75)", fontStyle: "italic", marginBottom: 14 }}>
-            {product.notes}
-          </p>
-          <div style={{
-            display: "flex", justifyContent: "space-between", alignItems: "baseline",
-            paddingTop: 14, borderTop: "1px solid rgba(251,247,237,0.2)",
-          }}>
-            <span style={{
-              fontFamily: "var(--font-fraunces), serif",
-              fontVariationSettings: '"SOFT" 30',
-              fontSize: "clamp(17px, 3.5vw, 20px)", color: "var(--gold)", fontWeight: 500,
-            }}>{rp(product.price)}</span>
-            <span style={{
-              fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase",
-              color: "var(--cream)", fontWeight: 600,
-              display: "inline-flex", alignItems: "center", gap: hovered && !soldOut ? 14 : 6,
-              transition: "gap 0.3s",
-            }}>{soldOut ? "Sold out" : "Add →"}</span>
-          </div>
+            fontVariationSettings: '"SOFT" 30',
+            fontSize: "clamp(18px, 3.5vw, 21px)", color: "var(--copper)", fontWeight: 500,
+          }}>{rp(product.price)}</span>
+          <span style={{
+            fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase",
+            color: "var(--ink)", fontWeight: 600,
+            display: "inline-flex", alignItems: "center", gap: hovered && !soldOut ? 14 : 6,
+            transition: "gap 0.3s",
+          }}>{soldOut ? "Sold out" : "Add →"}</span>
         </div>
       </div>
     </div>

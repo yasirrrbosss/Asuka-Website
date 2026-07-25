@@ -60,7 +60,7 @@ const Ic = {
   check:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>,
   undo:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>,
   wa:<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.553 4.12 1.522 5.856L.058 23.65a.5.5 0 00.607.607l5.794-1.464A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82a9.82 9.82 0 01-5.233-1.504l-.375-.223-3.443.87.906-3.318-.248-.39A9.82 9.82 0 1121.82 12 9.83 9.83 0 0112 21.82z"/></svg>,
-  chev:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#444" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>,
+  chev:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5c5041" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>,
   eye:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
   plus:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
   edit:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>,
@@ -354,18 +354,18 @@ export default function AdminDashboard() {
   const toggleAvail=async(id:string,cur:boolean)=>{const r=await adminApi("/api/admin/products","PATCH",{id,data:{available:!cur}});if(!r)return;setProds(p=>p.map(pr=>pr.id===id?{...pr,available:!cur}:pr));};
   const deleteProd=async(id:string)=>{const r=await adminApi("/api/admin/products","DELETE",{id});if(!r)return;setProds(p=>p.filter(pr=>pr.id!==id));setDelConfirm(null);showFlash("Produk dihapus.","success");};
 
-  const inp:CSSProperties={width:"100%",padding:"11px 14px",borderRadius:10,border:"1.5px solid #262626",fontSize:14,background:"#1a1a1a",color:"#e8e4df",fontFamily:"var(--font-dm-sans),sans-serif"};
-  const lab:CSSProperties={fontSize:11,fontWeight:600,color:"#666",marginBottom:5,display:"block",letterSpacing:.3};
-  const tb:CSSProperties={display:"flex",alignItems:"center",justifyContent:"center",padding:"8px 12px",borderRadius:8,border:"1.5px solid #262626",background:"transparent",color:"#777",cursor:"pointer"};
+  const inp:CSSProperties={width:"100%",padding:"11px 14px",borderRadius:10,border:"1.5px solid #3a2b18",fontSize:14,background:"#261c12",color:"#e8e4df",fontFamily:"var(--font-dm-sans),sans-serif"};
+  const lab:CSSProperties={fontSize:11,fontWeight:600,color:"#7a6c5d",marginBottom:5,display:"block",letterSpacing:.3};
+  const tb:CSSProperties={display:"flex",alignItems:"center",justifyContent:"center",padding:"8px 12px",borderRadius:8,border:"1.5px solid #3a2b18",background:"transparent",color:"#867763",cursor:"pointer"};
 
   return (
-    <div style={{fontFamily:"var(--font-dm-sans),sans-serif",background:"#111",color:"#e8e4df",minHeight:"100vh"}}>
+    <div style={{fontFamily:"var(--font-dm-sans),sans-serif",background:"#150f0a",color:"#e8e4df",minHeight:"100vh"}}>
 
       {!loggedIn&&(
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",minHeight:"100vh",padding:20}}>
           <div style={{width:"100%",maxWidth:360,animation:"fadeUp .5s ease"}}>
-            <div style={{textAlign:"center",marginBottom:32}}><div style={{fontSize:28,marginBottom:8}}>☕</div><h1 style={{fontFamily:"var(--font-cormorant),serif",color:"#e8e4df",fontSize:24}}>Asuka Admin</h1><p style={{color:"#555",fontSize:13,marginTop:4}}>Login untuk mengelola pesanan & produk</p></div>
-            <form onSubmit={e=>{e.preventDefault();handleLogin();}} style={{background:"#1a1a1a",borderRadius:16,padding:24,border:"1px solid #262626"}}>
+            <div style={{textAlign:"center",marginBottom:32}}><img src="/images/logo-cream.png" alt="Asuka Brewing & Space" style={{height:52,width:"auto",display:"block",margin:"0 auto 14px"}}/><h1 style={{fontFamily:"var(--font-cormorant),serif",color:"#e8e4df",fontSize:24}}>Asuka Admin</h1><p style={{color:"#6e6154",fontSize:13,marginTop:4}}>Login untuk mengelola pesanan & produk</p></div>
+            <form onSubmit={e=>{e.preventDefault();handleLogin();}} style={{background:"#261c12",borderRadius:16,padding:24,border:"1px solid #3a2b18"}}>
               <div style={{marginBottom:14}}><label htmlFor="admin-user" style={lab}>Username</label><input id="admin-user" name="username" type="text" autoComplete="username" autoFocus value={username} onChange={e=>setUsername(e.target.value)} placeholder="admin" style={inp} disabled={loginLoading}/></div>
               <div style={{marginBottom:18}}><label htmlFor="admin-pass" style={lab}>Password</label><input id="admin-pass" name="password" type="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="••••••••" style={inp} disabled={loginLoading}/></div>
               {loginErr&&<p role="alert" style={{color:"#e85d4a",fontSize:12,marginBottom:14,background:"rgba(232,93,74,.08)",padding:"8px 12px",borderRadius:8}}>{loginErr}</p>}
@@ -380,15 +380,15 @@ export default function AdminDashboard() {
           background:flash.kind==="success"?"#16241a":"#2a1a1a",
           border:flash.kind==="success"?"1px solid rgba(127,170,128,.4)":"1px solid rgba(232,93,74,.4)",
           color:flash.kind==="success"?"#9ec89f":"#e8a89a"}}>{flash.msg}</div>)}
-        <header style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 24px",borderBottom:"1px solid #1a1a1a",background:"#111",position:"sticky",top:0,zIndex:50}}>
-          <div style={{display:"flex",alignItems:"center",gap:10}}><span style={{fontSize:18}}>☕</span><span style={{fontFamily:"var(--font-cormorant),serif",fontSize:16,fontWeight:600,color:"#e8e4df",letterSpacing:1}}>ASUKA ADMIN</span></div>
-          <div style={{display:"flex",alignItems:"center",gap:12}}><span style={{fontSize:12,color:"#555"}}>{username}</span><button onClick={handleLogout} style={{background:"none",border:"1px solid #2a2a2a",color:"#777",padding:"5px 14px",borderRadius:6,fontSize:11,cursor:"pointer",fontWeight:500}}>Logout</button></div>
+        <header style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 24px",borderBottom:"1px solid #261c12",background:"#150f0a",position:"sticky",top:0,zIndex:50}}>
+          <div style={{display:"flex",alignItems:"center",gap:10}}><img src="/images/logo-cream.png" alt="Asuka" style={{height:22,width:"auto",display:"block"}}/><span style={{fontFamily:"var(--font-cormorant),serif",fontSize:16,fontWeight:600,color:"#e8e4df",letterSpacing:1}}>ASUKA ADMIN</span></div>
+          <div style={{display:"flex",alignItems:"center",gap:12}}><span style={{fontSize:12,color:"#6e6154"}}>{username}</span><button onClick={handleLogout} style={{background:"none",border:"1px solid #3d2f1c",color:"#867763",padding:"5px 14px",borderRadius:6,fontSize:11,cursor:"pointer",fontWeight:500}}>Logout</button></div>
         </header>
 
         {/* Tabs */}
-        <div style={{display:"flex",borderBottom:"1px solid #1e1e1e",background:"#141414"}}>
+        <div style={{display:"flex",borderBottom:"1px solid #2e2314",background:"#1c1410"}}>
           {([{k:"orders" as const,l:"Orders",ic:Ic.orders},{k:"analytics" as const,l:"Analytics",ic:Ic.chart},{k:"products" as const,l:"Products",ic:Ic.coffee}]).map(t=>(
-            <button key={t.k} onClick={()=>setTab(t.k)} style={{flex:1,padding:"14px 0",display:"flex",alignItems:"center",justifyContent:"center",gap:8,background:"transparent",border:"none",borderBottom:tab===t.k?"2px solid #7faa80":"2px solid transparent",color:tab===t.k?"#7faa80":"#555",fontSize:13,fontWeight:600,cursor:"pointer"}}>{t.ic} {t.l}</button>
+            <button key={t.k} onClick={()=>setTab(t.k)} style={{flex:1,padding:"14px 0",display:"flex",alignItems:"center",justifyContent:"center",gap:8,background:"transparent",border:"none",borderBottom:tab===t.k?"2px solid #7faa80":"2px solid transparent",color:tab===t.k?"#7faa80":"#6e6154",fontSize:13,fontWeight:600,cursor:"pointer"}}>{t.ic} {t.l}</button>
           ))}
         </div>
 
@@ -398,7 +398,7 @@ export default function AdminDashboard() {
           {tab==="orders"&&(<>
             <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(170px,1fr))",gap:12,marginBottom:28}}>
               {([{l:"Total",v:String(oS.all),c:"#7faa80"},{l:"Pending",v:String(oS.pending),c:"#e8a838"},{l:"Shipped",v:String(oS.shipped),c:"#5a9a7a"},{l:"Revenue",v:rp(oS.rev),c:"#7faa80"}]as const).map((s,i)=>(
-                <div key={i} style={{background:"#161616",borderRadius:14,padding:"18px 16px",border:"1px solid #1e1e1e"}}><div style={{fontSize:11,color:"#555",fontWeight:600,letterSpacing:.5,textTransform:"uppercase",marginBottom:6}}>{s.l}</div><div style={{fontSize:26,fontWeight:700,color:s.c}}>{s.v}</div></div>
+                <div key={i} style={{background:"#1f1710",borderRadius:14,padding:"18px 16px",border:"1px solid #2e2314"}}><div style={{fontSize:11,color:"#6e6154",fontWeight:600,letterSpacing:.5,textTransform:"uppercase",marginBottom:6}}>{s.l}</div><div style={{fontSize:26,fontWeight:700,color:s.c}}>{s.v}</div></div>
               ))}
             </div>
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:10,marginBottom:16}}>
@@ -415,9 +415,9 @@ export default function AdminDashboard() {
                   return (
                     <button key={f.k} onClick={()=>setOFilter(f.k)} style={{
                       padding:"7px 16px",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer",
-                      border:active?`1.5px solid ${accent??"#3d5a3e"}`:`1.5px solid ${accent?accent+"55":"#262626"}`,
+                      border:active?`1.5px solid ${accent??"#3d5a3e"}`:`1.5px solid ${accent?accent+"55":"#3a2b18"}`,
                       background:active?(accent?accent+"22":"rgba(61,90,62,.15)"):"transparent",
-                      color:active?(accent??"#7faa80"):(accent??"#666"),
+                      color:active?(accent??"#7faa80"):(accent??"#7a6c5d"),
                     }}>{f.l}</button>
                   );
                 })}
@@ -428,8 +428,8 @@ export default function AdminDashboard() {
                 <button onClick={downloadCSV} aria-label="Download CSV order" style={{...tb,background:"#3d5a3e",color:"#e8e4df",borderColor:"#3d5a3e"}}>{Ic.download}<span style={{marginLeft:5,fontSize:11,fontWeight:600}}>CSV</span></button>
               </div>
             </div>
-            {loading&&<div style={{textAlign:"center",padding:"60px 20px",color:"#555"}}>Loading...</div>}
-            {!loading&&filteredOrders.length===0&&<div style={{textAlign:"center",padding:"60px 20px",color:"#444"}}>Tidak ada order.</div>}
+            {loading&&<div style={{textAlign:"center",padding:"60px 20px",color:"#6e6154"}}>Loading...</div>}
+            {!loading&&filteredOrders.length===0&&<div style={{textAlign:"center",padding:"60px 20px",color:"#5c5041"}}>Tidak ada order.</div>}
             {!loading&&filteredOrders.length>0&&<div style={{display:"flex",flexDirection:"column",gap:8}}>{filteredOrders.map(o=>(
               <ORow
                 key={o.id}
@@ -452,26 +452,26 @@ export default function AdminDashboard() {
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20,flexWrap:"wrap",gap:12}}>
               <div>
                 <h2 style={{fontSize:20,fontWeight:700,color:"#e8e4df"}}>Analytics</h2>
-                <p style={{fontSize:12,color:"#555",marginTop:2}}>Insight bisnis dari data order kamu</p>
+                <p style={{fontSize:12,color:"#6e6154",marginTop:2}}>Insight bisnis dari data order kamu</p>
               </div>
-              <div style={{display:"flex",gap:6,background:"#161616",border:"1px solid #1e1e1e",borderRadius:10,padding:4}}>
+              <div style={{display:"flex",gap:6,background:"#1f1710",border:"1px solid #2e2314",borderRadius:10,padding:4}}>
                 {([{k:7 as const,l:"7 Hari"},{k:30 as const,l:"30 Hari"},{k:90 as const,l:"90 Hari"},{k:0 as const,l:"Semua"}]).map(r=>(
-                  <button key={r.k} onClick={()=>setARange(r.k)} style={{padding:"7px 14px",borderRadius:7,fontSize:11,fontWeight:600,cursor:"pointer",border:"none",background:aRange===r.k?"#3d5a3e":"transparent",color:aRange===r.k?"#e8e4df":"#666",transition:"all .15s"}}>{r.l}</button>
+                  <button key={r.k} onClick={()=>setARange(r.k)} style={{padding:"7px 14px",borderRadius:7,fontSize:11,fontWeight:600,cursor:"pointer",border:"none",background:aRange===r.k?"#3d5a3e":"transparent",color:aRange===r.k?"#e8e4df":"#7a6c5d",transition:"all .15s"}}>{r.l}</button>
                 ))}
               </div>
             </div>
 
-            {loading&&<div style={{textAlign:"center",padding:"60px 20px",color:"#555"}}>Loading...</div>}
+            {loading&&<div style={{textAlign:"center",padding:"60px 20px",color:"#6e6154"}}>Loading...</div>}
             {!loading&&analytics.totalOrders===0&&(
-              <div style={{textAlign:"center",padding:"80px 20px",color:"#444",background:"#161616",borderRadius:14,border:"1px solid #1e1e1e"}}>
+              <div style={{textAlign:"center",padding:"80px 20px",color:"#5c5041",background:"#1f1710",borderRadius:14,border:"1px solid #2e2314"}}>
                 <div style={{opacity:.4,marginBottom:12,display:"flex",justifyContent:"center"}}>{Ic.chart}</div>
-                <p style={{fontSize:14,color:"#666"}}>Belum ada data untuk periode ini.</p>
-                <p style={{fontSize:12,color:"#444",marginTop:6}}>Coba pilih rentang waktu lain.</p>
+                <p style={{fontSize:14,color:"#7a6c5d"}}>Belum ada data untuk periode ini.</p>
+                <p style={{fontSize:12,color:"#5c5041",marginTop:6}}>Coba pilih rentang waktu lain.</p>
               </div>
             )}
             {!loading&&analytics.totalOrders>0&&(<>
               {/* KPI Row — 6 cards: 4 business metrics + 2 action signals */}
-              <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(170px,1fr))",gap:12,marginBottom:14}}>
+              <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(150px,1fr))",gap:12,marginBottom:14}}>
                 <KPI label="Revenue" value={rp(analytics.totalRev)} accent="#7faa80" sub={`${analytics.totalOrders} order`}/>
                 <KPI label="Avg Order Value" value={rp(Math.round(analytics.avg))} accent="#e8a838" sub="per pesanan"/>
                 <KPI label="Conversion" value={`${analytics.conv.toFixed(0)}%`} accent="#5a9a7a" sub={`${analytics.shipped} dikirim`}/>
@@ -486,28 +486,28 @@ export default function AdminDashboard() {
                   <div style={{fontSize:18}}>⚠️</div>
                   <div style={{flex:1,minWidth:200}}>
                     <div style={{fontSize:11,fontWeight:700,color:"#e8a838",letterSpacing:.5,textTransform:"uppercase",marginBottom:4}}>Perlu Tindakan</div>
-                    <div style={{fontSize:13,color:"#bbb",lineHeight:1.55}}>
+                    <div style={{fontSize:13,color:"#c2b49e",lineHeight:1.55}}>
                       {awaitingVerifyCount>0&&<span><b style={{color:"#e8e4df"}}>{awaitingVerifyCount}</b> order belum diverifikasi</span>}
-                      {awaitingVerifyCount>0&&(outOfStockProds.length>0||lowStockProds.length>0)&&<span style={{color:"#555"}}> · </span>}
+                      {awaitingVerifyCount>0&&(outOfStockProds.length>0||lowStockProds.length>0)&&<span style={{color:"#6e6154"}}> · </span>}
                       {outOfStockProds.length>0&&<span><b style={{color:"#e85d4a"}}>{outOfStockProds.length}</b> produk habis stok</span>}
-                      {outOfStockProds.length>0&&lowStockProds.length>0&&<span style={{color:"#555"}}> · </span>}
+                      {outOfStockProds.length>0&&lowStockProds.length>0&&<span style={{color:"#6e6154"}}> · </span>}
                       {lowStockProds.length>0&&<span><b style={{color:"#e8a838"}}>{lowStockProds.length}</b> produk stok rendah</span>}
                     </div>
                   </div>
                   {awaitingVerifyCount>0&&(
-                    <button onClick={()=>{setTab("orders");setOFilter("needs-verify");}} style={{padding:"7px 14px",borderRadius:8,border:"none",background:"#e8a838",color:"#1a1a1a",fontSize:11,fontWeight:700,letterSpacing:.4,textTransform:"uppercase",cursor:"pointer"}}>Lihat order</button>
+                    <button onClick={()=>{setTab("orders");setOFilter("needs-verify");}} style={{padding:"7px 14px",borderRadius:8,border:"none",background:"#e8a838",color:"#261c12",fontSize:11,fontWeight:700,letterSpacing:.4,textTransform:"uppercase",cursor:"pointer"}}>Lihat order</button>
                   )}
                   {(outOfStockProds.length>0||lowStockProds.length>0)&&(
-                    <button onClick={()=>setTab("products")} style={{padding:"7px 14px",borderRadius:8,border:"1px solid #2a2a2a",background:"transparent",color:"#aaa",fontSize:11,fontWeight:700,letterSpacing:.4,textTransform:"uppercase",cursor:"pointer"}}>Restock</button>
+                    <button onClick={()=>setTab("products")} style={{padding:"7px 14px",borderRadius:8,border:"1px solid #3d2f1c",background:"transparent",color:"#b0a28e",fontSize:11,fontWeight:700,letterSpacing:.4,textTransform:"uppercase",cursor:"pointer"}}>Restock</button>
                   )}
                 </div>
               )}
 
               {/* Revenue Trend */}
-              <div style={{background:"#161616",borderRadius:14,border:"1px solid #1e1e1e",padding:"22px 24px",marginBottom:16}}>
+              <div style={{background:"#1f1710",borderRadius:14,border:"1px solid #2e2314",padding:"22px 24px",marginBottom:16}}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:18}}>
                   <div>
-                    <div style={{fontSize:12,color:"#555",fontWeight:600,letterSpacing:.4,textTransform:"uppercase"}}>Revenue Trend</div>
+                    <div style={{fontSize:12,color:"#6e6154",fontWeight:600,letterSpacing:.4,textTransform:"uppercase"}}>Revenue Trend</div>
                     <div style={{fontSize:18,fontWeight:700,color:"#e8e4df",marginTop:4}}>{rp(analytics.totalRev)}</div>
                   </div>
                   <div style={{display:"flex",alignItems:"center",gap:6,padding:"5px 10px",borderRadius:6,background:"rgba(127,170,128,.1)",color:"#7faa80",fontSize:11,fontWeight:600}}>{Ic.trend} {aRange===0?"All time":`Last ${aRange}d`}</div>
@@ -517,14 +517,14 @@ export default function AdminDashboard() {
 
               {/* Donut + Top Products */}
               <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:16,marginBottom:16}}>
-                <div style={{background:"#161616",borderRadius:14,border:"1px solid #1e1e1e",padding:"22px 24px"}}>
-                  <div style={{fontSize:12,color:"#555",fontWeight:600,letterSpacing:.4,textTransform:"uppercase",marginBottom:18}}>Status Pesanan</div>
+                <div style={{background:"#1f1710",borderRadius:14,border:"1px solid #2e2314",padding:"22px 24px"}}>
+                  <div style={{fontSize:12,color:"#6e6154",fontWeight:600,letterSpacing:.4,textTransform:"uppercase",marginBottom:18}}>Status Pesanan</div>
                   <StatusDonut shipped={analytics.shipped} pending={analytics.pending}/>
                 </div>
-                <div style={{background:"#161616",borderRadius:14,border:"1px solid #1e1e1e",padding:"22px 24px"}}>
-                  <div style={{fontSize:12,color:"#555",fontWeight:600,letterSpacing:.4,textTransform:"uppercase",marginBottom:18}}>Top Beans (by Revenue)</div>
+                <div style={{background:"#1f1710",borderRadius:14,border:"1px solid #2e2314",padding:"22px 24px"}}>
+                  <div style={{fontSize:12,color:"#6e6154",fontWeight:600,letterSpacing:.4,textTransform:"uppercase",marginBottom:18}}>Top Beans (by Revenue)</div>
                   {analytics.topProducts.length===0?(
-                    <div style={{textAlign:"center",padding:"30px 0",color:"#444",fontSize:12}}>Belum ada penjualan</div>
+                    <div style={{textAlign:"center",padding:"30px 0",color:"#5c5041",fontSize:12}}>Belum ada penjualan</div>
                   ):(
                     <div style={{display:"flex",flexDirection:"column",gap:14}}>
                       {(()=>{const max=Math.max(...analytics.topProducts.map(p=>p.rev));return analytics.topProducts.map((p,i)=>(
@@ -533,10 +533,10 @@ export default function AdminDashboard() {
                             <span style={{fontSize:12.5,color:"#e8e4df",fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",maxWidth:"60%"}}>{i+1}. {p.name}</span>
                             <span style={{fontSize:11.5,color:"#7faa80",fontWeight:700}}>{rp(p.rev)}</span>
                           </div>
-                          <div style={{height:6,background:"#0f0f0f",borderRadius:3,overflow:"hidden",position:"relative"}}>
+                          <div style={{height:6,background:"#171009",borderRadius:3,overflow:"hidden",position:"relative"}}>
                             <div style={{position:"absolute",inset:0,width:`${(p.rev/max)*100}%`,background:"linear-gradient(90deg,#3d5a3e,#7faa80)",borderRadius:3,transition:"width .5s ease"}}/>
                           </div>
-                          <div style={{fontSize:10,color:"#555",marginTop:3}}>{p.qty} unit terjual</div>
+                          <div style={{fontSize:10,color:"#6e6154",marginTop:3}}>{p.qty} unit terjual</div>
                         </div>
                       ));})()}
                     </div>
@@ -546,19 +546,19 @@ export default function AdminDashboard() {
 
               {/* Shipping Mix + Recent */}
               <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:16}}>
-                <div style={{background:"#161616",borderRadius:14,border:"1px solid #1e1e1e",padding:"22px 24px"}}>
-                  <div style={{fontSize:12,color:"#555",fontWeight:600,letterSpacing:.4,textTransform:"uppercase",marginBottom:18}}>Distribusi Pengiriman</div>
+                <div style={{background:"#1f1710",borderRadius:14,border:"1px solid #2e2314",padding:"22px 24px"}}>
+                  <div style={{fontSize:12,color:"#6e6154",fontWeight:600,letterSpacing:.4,textTransform:"uppercase",marginBottom:18}}>Distribusi Pengiriman</div>
                   {analytics.shipMix.length===0?(
-                    <div style={{textAlign:"center",padding:"30px 0",color:"#444",fontSize:12}}>—</div>
+                    <div style={{textAlign:"center",padding:"30px 0",color:"#5c5041",fontSize:12}}>—</div>
                   ):(
                     <div style={{display:"flex",flexDirection:"column",gap:12}}>
                       {(()=>{const total=analytics.shipMix.reduce((s,x)=>s+x.count,0);const colors=["#7faa80","#e8a838","#5a9a7a","#e85d4a"];return analytics.shipMix.map((s,i)=>(
                         <div key={s.label}>
                           <div style={{display:"flex",justifyContent:"space-between",fontSize:12,marginBottom:5}}>
-                            <span style={{color:"#aaa"}}>{s.label}</span>
-                            <span style={{color:"#777",fontWeight:600}}>{s.count} ({((s.count/total)*100).toFixed(0)}%)</span>
+                            <span style={{color:"#b0a28e"}}>{s.label}</span>
+                            <span style={{color:"#867763",fontWeight:600}}>{s.count} ({((s.count/total)*100).toFixed(0)}%)</span>
                           </div>
-                          <div style={{height:5,background:"#0f0f0f",borderRadius:3,overflow:"hidden"}}>
+                          <div style={{height:5,background:"#171009",borderRadius:3,overflow:"hidden"}}>
                             <div style={{width:`${(s.count/total)*100}%`,height:"100%",background:colors[i%colors.length],borderRadius:3,transition:"width .5s ease"}}/>
                           </div>
                         </div>
@@ -566,15 +566,15 @@ export default function AdminDashboard() {
                     </div>
                   )}
                 </div>
-                <div style={{background:"#161616",borderRadius:14,border:"1px solid #1e1e1e",padding:"22px 24px"}}>
-                  <div style={{fontSize:12,color:"#555",fontWeight:600,letterSpacing:.4,textTransform:"uppercase",marginBottom:14}}>Aktivitas Terbaru</div>
+                <div style={{background:"#1f1710",borderRadius:14,border:"1px solid #2e2314",padding:"22px 24px"}}>
+                  <div style={{fontSize:12,color:"#6e6154",fontWeight:600,letterSpacing:.4,textTransform:"uppercase",marginBottom:14}}>Aktivitas Terbaru</div>
                   <div style={{display:"flex",flexDirection:"column",gap:0}}>
                     {analytics.recent.map((o,i)=>(
-                      <div key={o.id} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 0",borderBottom:i<analytics.recent.length-1?"1px solid #1e1e1e":"none"}}>
+                      <div key={o.id} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 0",borderBottom:i<analytics.recent.length-1?"1px solid #2e2314":"none"}}>
                         <div style={{width:8,height:8,borderRadius:"50%",flexShrink:0,background:o.status==="shipped"?"#5a9a7a":"#e8a838"}}/>
                         <div style={{flex:1,minWidth:0}}>
                           <div style={{fontSize:12.5,color:"#e8e4df",fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{o.customer?.name??"—"}</div>
-                          <div style={{fontSize:10.5,color:"#555",marginTop:1}}>{fmtD(o.createdAt)}</div>
+                          <div style={{fontSize:10.5,color:"#6e6154",marginTop:1}}>{fmtD(o.createdAt)}</div>
                         </div>
                         <div style={{fontSize:12,fontWeight:700,color:"#7faa80",flexShrink:0}}>{rp(o.total)}</div>
                       </div>
@@ -585,24 +585,24 @@ export default function AdminDashboard() {
 
               {/* Detailed Stock Alerts — only show if there's something to act on */}
               {(outOfStockProds.length>0||lowStockProds.length>0)&&(
-                <div style={{background:"#161616",borderRadius:14,border:"1px solid #1e1e1e",padding:"22px 24px",marginTop:16}}>
+                <div style={{background:"#1f1710",borderRadius:14,border:"1px solid #2e2314",padding:"22px 24px",marginTop:16}}>
                   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:18,flexWrap:"wrap",gap:8}}>
-                    <div style={{fontSize:12,color:"#555",fontWeight:600,letterSpacing:.4,textTransform:"uppercase"}}>Restock Alert</div>
-                    <button onClick={()=>setTab("products")} style={{padding:"5px 12px",borderRadius:6,border:"1px solid #2a2a2a",background:"transparent",color:"#888",fontSize:10.5,fontWeight:600,letterSpacing:.4,textTransform:"uppercase",cursor:"pointer"}}>Buka Products</button>
+                    <div style={{fontSize:12,color:"#6e6154",fontWeight:600,letterSpacing:.4,textTransform:"uppercase"}}>Restock Alert</div>
+                    <button onClick={()=>setTab("products")} style={{padding:"5px 12px",borderRadius:6,border:"1px solid #3d2f1c",background:"transparent",color:"#948470",fontSize:10.5,fontWeight:600,letterSpacing:.4,textTransform:"uppercase",cursor:"pointer"}}>Buka Products</button>
                   </div>
                   <div style={{display:"flex",flexDirection:"column",gap:0}}>
                     {[...outOfStockProds,...lowStockProds].map((p,i,arr)=>{
                       const isOut=p.stock===0;
                       return (
-                        <div key={p.id} style={{display:"flex",alignItems:"center",gap:12,padding:"10px 0",borderBottom:i<arr.length-1?"1px solid #1e1e1e":"none"}}>
+                        <div key={p.id} style={{display:"flex",alignItems:"center",gap:12,padding:"10px 0",borderBottom:i<arr.length-1?"1px solid #2e2314":"none"}}>
                           <div style={{width:8,height:8,borderRadius:"50%",flexShrink:0,background:isOut?"#e85d4a":"#e8a838",boxShadow:`0 0 6px ${isOut?"#e85d4a":"#e8a838"}55`}}/>
                           <div style={{flex:1,minWidth:0}}>
                             <div style={{fontSize:13,color:"#e8e4df",fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{p.name}</div>
-                            <div style={{fontSize:11,color:"#555",marginTop:1}}>{p.weight} · {p.origin||"—"}</div>
+                            <div style={{fontSize:11,color:"#6e6154",marginTop:1}}>{p.weight} · {p.origin||"—"}</div>
                           </div>
                           <div style={{textAlign:"right",flexShrink:0}}>
                             <div style={{fontSize:13,fontWeight:700,color:isOut?"#e85d4a":"#e8a838"}}>{p.stock} stok</div>
-                            <div style={{fontSize:10,color:"#555",letterSpacing:.3,textTransform:"uppercase",marginTop:1}}>{isOut?"Habis":"Rendah"}</div>
+                            <div style={{fontSize:10,color:"#6e6154",letterSpacing:.3,textTransform:"uppercase",marginTop:1}}>{isOut?"Habis":"Rendah"}</div>
                           </div>
                         </div>
                       );
@@ -616,20 +616,20 @@ export default function AdminDashboard() {
           {/* ═══ PRODUCTS ═══ */}
           {tab==="products"&&(<>
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20,flexWrap:"wrap",gap:12}}>
-              <div><h2 style={{fontSize:20,fontWeight:700,color:"#e8e4df"}}>Manage Beans</h2><p style={{fontSize:12,color:"#555",marginTop:2}}>{prods.length} produk · {prods.filter(p=>p.available).length} tersedia</p></div>
+              <div><h2 style={{fontSize:20,fontWeight:700,color:"#e8e4df"}}>Manage Beans</h2><p style={{fontSize:12,color:"#6e6154",marginTop:2}}>{prods.length} produk · {prods.filter(p=>p.available).length} tersedia</p></div>
               <div style={{display:"flex",gap:8}}>
                 <button onClick={fetchProds} aria-label="Refresh daftar produk" title="Refresh" style={tb}><span style={{display:"flex",animation:pLoading?"spin .8s linear infinite":"none"}}>{Ic.refresh}</span></button>
                 <button onClick={openAdd} style={{...tb,background:"#3d5a3e",color:"#e8e4df",borderColor:"#3d5a3e",gap:6}}>{Ic.plus}<span style={{fontSize:12,fontWeight:600}}>Tambah Beans</span></button>
               </div>
             </div>
 
-            {pLoading&&<div style={{textAlign:"center",padding:"60px",color:"#555"}}>Loading...</div>}
-            {!pLoading&&prods.length===0&&<div style={{textAlign:"center",padding:"60px",color:"#444"}}><p>Belum ada produk.</p><p style={{fontSize:12,color:"#555",marginTop:4}}>Klik &quot;Tambah Beans&quot; untuk mulai.</p></div>}
+            {pLoading&&<div style={{textAlign:"center",padding:"60px",color:"#6e6154"}}>Loading...</div>}
+            {!pLoading&&prods.length===0&&<div style={{textAlign:"center",padding:"60px",color:"#5c5041"}}><p>Belum ada produk.</p><p style={{fontSize:12,color:"#6e6154",marginTop:4}}>Klik &quot;Tambah Beans&quot; untuk mulai.</p></div>}
             {!pLoading&&prods.length>0&&(
               <div style={{display:"flex",flexDirection:"column",gap:8}}>
                 {prods.map(p=>(
-                  <div key={p.id} style={{background:"#161616",borderRadius:14,border:"1px solid #1e1e1e",padding:"16px 18px",display:"flex",alignItems:"center",gap:14,flexWrap:"wrap"}}>
-                    <div style={{width:48,height:48,borderRadius:10,background:p.cat==="espresso"?"linear-gradient(135deg,#1a1a1a,#2d2d2d)":"linear-gradient(135deg,#3d5a3e,#5a7d5c)",flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",overflow:"hidden",opacity:p.available?1:.4}}>
+                  <div key={p.id} style={{background:"#1f1710",borderRadius:14,border:"1px solid #2e2314",padding:"16px 18px",display:"flex",alignItems:"center",gap:14,flexWrap:"wrap"}}>
+                    <div style={{width:48,height:48,borderRadius:10,background:p.cat==="espresso"?"linear-gradient(135deg,#261c12,#2d2d2d)":"linear-gradient(135deg,#3d5a3e,#5a7d5c)",flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",overflow:"hidden",opacity:p.available?1:.4}}>
                       {p.img?<img src={p.img} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/>:Ic.coffee}
                     </div>
                     <div style={{flex:"1 1 180px",minWidth:0,opacity:p.available?1:.5}}>
@@ -640,7 +640,7 @@ export default function AdminDashboard() {
                         {p.stock!==undefined&&p.stock<=5&&p.stock>0&&<span style={{fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:4,background:"rgba(232,168,56,.1)",color:"#e8a838",textTransform:"uppercase"}}>Stok rendah</span>}
                         {p.stock===0&&<span style={{fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:4,background:"rgba(232,93,74,.1)",color:"#e85d4a",textTransform:"uppercase"}}>Habis</span>}
                       </div>
-                      <div style={{fontSize:12,color:"#555",marginTop:2}}>
+                      <div style={{fontSize:12,color:"#6e6154",marginTop:2}}>
                         {p.weight} · {p.origin} · {rp(p.price)}
                         {p.stock!==undefined&&<> · <b style={{color:p.stock===0?"#e85d4a":p.stock<=5?"#e8a838":"#7faa80"}}>{p.stock} stok</b></>}
                       </div>
@@ -648,7 +648,7 @@ export default function AdminDashboard() {
                     <div style={{display:"flex",gap:6,flexShrink:0,marginLeft:"auto"}}>
                       <button onClick={()=>toggleAvail(p.id!,p.available)} style={{...tb,padding:"6px 12px",fontSize:11,gap:4,background:p.available?"rgba(232,168,56,.1)":"rgba(90,154,122,.1)",borderColor:p.available?"rgba(232,168,56,.2)":"rgba(90,154,122,.2)",color:p.available?"#e8a838":"#5a9a7a"}}>{p.available?"Sold Out":"Available"}</button>
                       <button onClick={()=>openEdit(p)} aria-label={`Edit ${p.name}`} title="Edit" style={{...tb,padding:"6px 10px"}}>{Ic.edit}</button>
-                      {delConfirm===p.id?(<div style={{display:"flex",gap:4}}><button onClick={()=>deleteProd(p.id!)} aria-label={`Konfirmasi hapus ${p.name}`} style={{...tb,padding:"6px 10px",background:"rgba(232,93,74,.15)",borderColor:"rgba(232,93,74,.3)",color:"#e85d4a"}}>Ya</button><button onClick={()=>setDelConfirm(null)} style={{...tb,padding:"6px 10px"}}>Batal</button></div>):(<button onClick={()=>setDelConfirm(p.id!)} aria-label={`Hapus ${p.name}`} title="Hapus" style={{...tb,padding:"6px 10px",color:"#555"}}>{Ic.trash}</button>)}
+                      {delConfirm===p.id?(<div style={{display:"flex",gap:4}}><button onClick={()=>deleteProd(p.id!)} aria-label={`Konfirmasi hapus ${p.name}`} style={{...tb,padding:"6px 10px",background:"rgba(232,93,74,.15)",borderColor:"rgba(232,93,74,.3)",color:"#e85d4a"}}>Ya</button><button onClick={()=>setDelConfirm(null)} style={{...tb,padding:"6px 10px"}}>Batal</button></div>):(<button onClick={()=>setDelConfirm(p.id!)} aria-label={`Hapus ${p.name}`} title="Hapus" style={{...tb,padding:"6px 10px",color:"#6e6154"}}>{Ic.trash}</button>)}
                     </div>
                   </div>
                 ))}
@@ -658,7 +658,7 @@ export default function AdminDashboard() {
             {/* Form Modal */}
             {showForm&&(
               <div role="dialog" aria-modal="true" aria-label={editP?"Edit beans":"Tambah beans baru"} style={{position:"fixed",inset:0,zIndex:200,background:"rgba(0,0,0,.7)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={closeForm}>
-                <div style={{background:"#1a1a1a",borderRadius:16,padding:28,width:"100%",maxWidth:480,maxHeight:"90vh",overflowY:"auto",border:"1px solid #262626"}} onClick={e=>e.stopPropagation()}>
+                <div style={{background:"#261c12",borderRadius:16,padding:28,width:"100%",maxWidth:480,maxHeight:"90vh",overflowY:"auto",border:"1px solid #3a2b18"}} onClick={e=>e.stopPropagation()}>
                   <h3 style={{fontSize:18,fontWeight:700,color:"#e8e4df",marginBottom:20}}>{editP?"Edit Beans":"Tambah Beans Baru"}</h3>
                   <div style={{display:"flex",flexDirection:"column",gap:12}}>
                     <div><label style={lab}>Nama Beans *</label><input value={pForm.name} onChange={e=>setPForm({...pForm,name:e.target.value})} placeholder="Gayo Mossto Wash" style={inp}/></div>
@@ -678,7 +678,7 @@ export default function AdminDashboard() {
                           placeholder="opsional"
                           style={inp}
                         />
-                        <p style={{fontSize:10,color:"#555",marginTop:4,lineHeight:1.4}}>Kosongkan = tidak track stok</p>
+                        <p style={{fontSize:10,color:"#6e6154",marginTop:4,lineHeight:1.4}}>Kosongkan = tidak track stok</p>
                       </div>
                     </div>
                     <div style={{display:"flex",gap:12}}>
@@ -690,7 +690,7 @@ export default function AdminDashboard() {
                       <label style={lab}>Gambar Produk (opsional)</label>
                       <input ref={fileInputRef} type="file" accept="image/*" style={{display:"none"}} onChange={e=>{handleImageFile(e.target.files?.[0]);if(e.target)e.target.value="";}}/>
                       {pForm.img?(
-                        <div style={{position:"relative",borderRadius:10,overflow:"hidden",border:"1.5px solid #262626",background:"#0f0f0f"}}>
+                        <div style={{position:"relative",borderRadius:10,overflow:"hidden",border:"1.5px solid #3a2b18",background:"#171009"}}>
                           <img src={pForm.img} alt="" style={{display:"block",width:"100%",maxHeight:220,objectFit:"cover"}}/>
                           <div style={{position:"absolute",top:8,right:8,display:"flex",gap:6}}>
                             <button type="button" onClick={()=>fileInputRef.current?.click()} style={{padding:"6px 10px",borderRadius:6,border:"none",background:"rgba(0,0,0,.65)",color:"#e8e4df",fontSize:11,fontWeight:600,cursor:"pointer"}}>Ganti</button>
@@ -703,23 +703,23 @@ export default function AdminDashboard() {
                           onDragOver={e=>{e.preventDefault();setDragOver(true);}}
                           onDragLeave={e=>{e.preventDefault();setDragOver(false);}}
                           onDrop={e=>{e.preventDefault();setDragOver(false);handleImageFile(e.dataTransfer.files?.[0]);}}
-                          style={{border:`1.5px dashed ${dragOver?"#7faa80":"#2e2e2e"}`,borderRadius:10,padding:"28px 16px",textAlign:"center",cursor:"pointer",background:dragOver?"rgba(127,170,128,.06)":"#141414",transition:"all .15s"}}
+                          style={{border:`1.5px dashed ${dragOver?"#7faa80":"#2e2e2e"}`,borderRadius:10,padding:"28px 16px",textAlign:"center",cursor:"pointer",background:dragOver?"rgba(127,170,128,.06)":"#1c1410",transition:"all .15s"}}
                         >
                           <div style={{fontSize:22,marginBottom:6,opacity:.6}}>📷</div>
-                          <div style={{fontSize:13,color:"#aaa",fontWeight:600}}>{imgUploading?"Memproses...":"Drag & drop atau klik untuk pilih"}</div>
-                          <div style={{fontSize:11,color:"#555",marginTop:4}}>PNG, JPG · max 8MB · auto-resize ke 800px</div>
+                          <div style={{fontSize:13,color:"#b0a28e",fontWeight:600}}>{imgUploading?"Memproses...":"Drag & drop atau klik untuk pilih"}</div>
+                          <div style={{fontSize:11,color:"#6e6154",marginTop:4}}>PNG, JPG · max 8MB · auto-resize ke 800px</div>
                         </div>
                       )}
                       {imgErr&&<p style={{color:"#e85d4a",fontSize:11,marginTop:6}}>{imgErr}</p>}
                     </div>
                     <div style={{display:"flex",gap:12,alignItems:"center"}}>
-                      <div style={{flex:1}}><label style={lab}>Kategori</label><div style={{display:"flex",gap:8}}>{(["filter","espresso"]as const).map(c=>(<button key={c} onClick={()=>setPForm({...pForm,cat:c})} style={{flex:1,padding:"9px 0",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer",border:pForm.cat===c?"1.5px solid #3d5a3e":"1.5px solid #262626",background:pForm.cat===c?"rgba(61,90,62,.15)":"transparent",color:pForm.cat===c?"#7faa80":"#666",textTransform:"capitalize"}}>{c}</button>))}</div></div>
+                      <div style={{flex:1}}><label style={lab}>Kategori</label><div style={{display:"flex",gap:8}}>{(["filter","espresso"]as const).map(c=>(<button key={c} onClick={()=>setPForm({...pForm,cat:c})} style={{flex:1,padding:"9px 0",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer",border:pForm.cat===c?"1.5px solid #3d5a3e":"1.5px solid #3a2b18",background:pForm.cat===c?"rgba(61,90,62,.15)":"transparent",color:pForm.cat===c?"#7faa80":"#7a6c5d",textTransform:"capitalize"}}>{c}</button>))}</div></div>
                       <div><label style={lab}>Status</label><button onClick={()=>setPForm({...pForm,available:!pForm.available})} style={{padding:"9px 16px",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer",border:"1.5px solid",borderColor:pForm.available?"rgba(90,154,122,.3)":"rgba(232,93,74,.3)",background:pForm.available?"rgba(90,154,122,.1)":"rgba(232,93,74,.1)",color:pForm.available?"#5a9a7a":"#e85d4a"}}>{pForm.available?"Available":"Sold Out"}</button></div>
                     </div>
                   </div>
                   <div style={{display:"flex",gap:10,marginTop:24}}>
-                    <button onClick={closeForm} style={{flex:1,padding:"12px",borderRadius:10,border:"1.5px solid #262626",background:"transparent",color:"#777",fontSize:14,fontWeight:600,cursor:"pointer"}}>Batal</button>
-                    <button onClick={saveProd} disabled={pSaving||!pForm.name||!pForm.weight||!pForm.price} style={{flex:1,padding:"12px",borderRadius:10,border:"none",background:(pForm.name&&pForm.weight&&pForm.price)?"#3d5a3e":"#262626",color:"#e8e4df",fontSize:14,fontWeight:600,cursor:pSaving?"wait":"pointer"}}>{pSaving?"Saving...":editP?"Update":"Tambah"}</button>
+                    <button onClick={closeForm} style={{flex:1,padding:"12px",borderRadius:10,border:"1.5px solid #3a2b18",background:"transparent",color:"#867763",fontSize:14,fontWeight:600,cursor:"pointer"}}>Batal</button>
+                    <button onClick={saveProd} disabled={pSaving||!pForm.name||!pForm.weight||!pForm.price} style={{flex:1,padding:"12px",borderRadius:10,border:"none",background:(pForm.name&&pForm.weight&&pForm.price)?"#3d5a3e":"#3a2b18",color:"#e8e4df",fontSize:14,fontWeight:600,cursor:pSaving?"wait":"pointer"}}>{pSaving?"Saving...":editP?"Update":"Tambah"}</button>
                   </div>
                 </div>
               </div>
@@ -736,12 +736,12 @@ export default function AdminDashboard() {
               <button onClick={()=>setProofModal(null)} aria-label="Tutup" style={{position:"absolute",top:-12,right:-12,width:32,height:32,borderRadius:"50%",border:"none",background:"#333",color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,cursor:"pointer"}}>×</button>
             </div>
           ):(
-            <div style={{color:"#888",fontSize:13,display:"flex",alignItems:"center",gap:10}}><span style={{display:"flex",animation:"spin .8s linear infinite"}}>{Ic.refresh}</span> Memuat bukti pembayaran...</div>
+            <div style={{color:"#948470",fontSize:13,display:"flex",alignItems:"center",gap:10}}><span style={{display:"flex",animation:"spin .8s linear infinite"}}>{Ic.refresh}</span> Memuat bukti pembayaran...</div>
           )}
         </div>
       )}
 
-      <style>{`@keyframes fadeUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}*{box-sizing:border-box;margin:0;padding:0}input:focus{outline:2px solid #3d5a3e;outline-offset:1px}::selection{background:#3d5a3e;color:#f4f1eb}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#111}::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:3px}`}</style>
+      <style>{`@keyframes fadeUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}*{box-sizing:border-box;margin:0;padding:0}input:focus{outline:2px solid #3d5a3e;outline-offset:1px}::selection{background:#3d5a3e;color:#f4f1eb}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#150f0a}::-webkit-scrollbar-thumb{background:#3d2f1c;border-radius:3px}`}</style>
     </div>
   );
 }
@@ -773,10 +773,10 @@ function ORow({o,exp,toggle,onVerify,onShip,onUndoShip,onCancel,onSaveNotes,busy
   const statusBg=isShipped?"rgba(90,154,122,.1)":isCancelled?"rgba(232,93,74,.1)":"rgba(232,168,56,.1)";
   const statusLabel=isShipped?"shipped":isCancelled?"cancelled":"pending";
 
-  const inpDark:CSSProperties={width:"100%",padding:"9px 12px",borderRadius:8,border:"1.5px solid #262626",fontSize:13,background:"#1a1a1a",color:"#e8e4df",fontFamily:"var(--font-dm-sans),sans-serif"};
+  const inpDark:CSSProperties={width:"100%",padding:"9px 12px",borderRadius:8,border:"1.5px solid #3a2b18",fontSize:13,background:"#261c12",color:"#e8e4df",fontFamily:"var(--font-dm-sans),sans-serif"};
 
   return(
-    <div onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} style={{background:"#161616",borderRadius:14,border:`1px solid ${exp||hover?"#2a2a2a":"#1e1e1e"}`,overflow:"hidden",transition:"border-color .15s, transform .15s",transform:hover&&!exp?"translateY(-1px)":"translateY(0)",opacity:isCancelled?0.65:1}}>
+    <div onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} style={{background:"#1f1710",borderRadius:14,border:`1px solid ${exp||hover?"#3d2f1c":"#2e2314"}`,overflow:"hidden",transition:"border-color .15s, transform .15s",transform:hover&&!exp?"translateY(-1px)":"translateY(0)",opacity:isCancelled?0.65:1}}>
       <div onClick={toggle} style={{display:"flex",alignItems:"center",gap:12,padding:"14px 18px",cursor:"pointer"}}>
         <div style={{width:10,height:10,borderRadius:"50%",flexShrink:0,background:statusColor,boxShadow:`0 0 8px ${statusColor}55`}}/>
         <div style={{flex:1,minWidth:0}}>
@@ -787,40 +787,40 @@ function ORow({o,exp,toggle,onVerify,onShip,onUndoShip,onCancel,onSaveNotes,busy
             {o.paymentVerified&&<span style={{fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:4,background:"rgba(127,170,128,.1)",color:"#7faa80",letterSpacing:.5}}>BAYAR ✓</span>}
             {o.internalNotes&&<span style={{fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:4,background:"rgba(168,168,232,.08)",color:"#8b8fa8",letterSpacing:.5}}>📝 CATATAN</span>}
           </div>
-          <div style={{fontSize:12,color:"#555",marginTop:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{o.customer?.contact} · {o.shipment?.label} · {(o.items??[]).length} items</div>
+          <div style={{fontSize:12,color:"#6e6154",marginTop:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{o.customer?.contact} · {o.shipment?.label} · {(o.items??[]).length} items</div>
         </div>
         <div style={{textAlign:"right",flexShrink:0}}>
-          <div style={{fontSize:16,fontWeight:700,color:isCancelled?"#666":"#7faa80",textDecoration:isCancelled?"line-through":"none"}}>{rp(o.total)}</div>
-          <div style={{fontSize:10.5,color:"#444",marginTop:1}}>{fmtD(o.createdAt)}</div>
+          <div style={{fontSize:16,fontWeight:700,color:isCancelled?"#7a6c5d":"#7faa80",textDecoration:isCancelled?"line-through":"none"}}>{rp(o.total)}</div>
+          <div style={{fontSize:10.5,color:"#5c5041",marginTop:1}}>{fmtD(o.createdAt)}</div>
         </div>
         <span style={{transform:exp?"rotate(180deg)":"rotate(0)",transition:"transform .2s",flexShrink:0,display:"flex"}}>{Ic.chev}</span>
       </div>
 
       {exp&&(
-        <div style={{padding:"0 18px 18px",borderTop:"1px solid #1e1e1e",animation:"fadeUp .2s ease"}}>
+        <div style={{padding:"0 18px 18px",borderTop:"1px solid #2e2314",animation:"fadeUp .2s ease"}}>
           <div style={{paddingTop:14}}>
-            <div style={{fontSize:10.5,color:"#444",marginBottom:12,fontFamily:"monospace"}}>ID: {o.id}</div>
+            <div style={{fontSize:10.5,color:"#5c5041",marginBottom:12,fontFamily:"monospace"}}>ID: {o.id}</div>
 
             {/* Cancelled banner */}
             {isCancelled&&(
               <div style={{background:"rgba(232,93,74,.08)",border:"1px solid rgba(232,93,74,.25)",borderRadius:8,padding:"10px 14px",marginBottom:14}}>
                 <div style={{fontSize:11,fontWeight:700,color:"#e85d4a",letterSpacing:.5,textTransform:"uppercase",marginBottom:4}}>Order Dibatalkan</div>
-                <div style={{fontSize:12.5,color:"#aaa",lineHeight:1.5}}>{o.cancelReason||"—"}</div>
-                {o.cancelledAt&&<div style={{fontSize:10.5,color:"#666",marginTop:4}}>{fmtD(o.cancelledAt)}</div>}
+                <div style={{fontSize:12.5,color:"#b0a28e",lineHeight:1.5}}>{o.cancelReason||"—"}</div>
+                {o.cancelledAt&&<div style={{fontSize:10.5,color:"#7a6c5d",marginTop:4}}>{fmtD(o.cancelledAt)}</div>}
               </div>
             )}
 
             <DS t="Items">
-              {(o.items??[]).map((it,i)=>(<div key={i} style={{display:"flex",justifyContent:"space-between",padding:"4px 0",fontSize:13,color:"#aaa"}}><span>{it.name} <span style={{color:"#555"}}>({it.weight})</span> × {it.qty}</span><span style={{fontWeight:600,color:"#ccc"}}>{rp(it.subtotal)}</span></div>))}
-              <div style={{display:"flex",justifyContent:"space-between",padding:"6px 0 0",fontSize:12,color:"#666",borderTop:"1px solid #222",marginTop:6}}><span>Ongkir ({o.shipment?.label})</span><span>{rp(o.shipment?.price??0)}</span></div>
-              <div style={{display:"flex",justifyContent:"space-between",padding:"6px 0 0",fontSize:14,color:"#7faa80",fontWeight:700,borderTop:"1px solid #222",marginTop:4}}><span>Total</span><span>{rp(o.total)}</span></div>
+              {(o.items??[]).map((it,i)=>(<div key={i} style={{display:"flex",justifyContent:"space-between",padding:"4px 0",fontSize:13,color:"#b0a28e"}}><span>{it.name} <span style={{color:"#6e6154"}}>({it.weight})</span> × {it.qty}</span><span style={{fontWeight:600,color:"#d0c4b0"}}>{rp(it.subtotal)}</span></div>))}
+              <div style={{display:"flex",justifyContent:"space-between",padding:"6px 0 0",fontSize:12,color:"#7a6c5d",borderTop:"1px solid #33291a",marginTop:6}}><span>Ongkir ({o.shipment?.label})</span><span>{rp(o.shipment?.price??0)}</span></div>
+              <div style={{display:"flex",justifyContent:"space-between",padding:"6px 0 0",fontSize:14,color:"#7faa80",fontWeight:700,borderTop:"1px solid #33291a",marginTop:4}}><span>Total</span><span>{rp(o.total)}</span></div>
             </DS>
 
             <DS t="Penerima">
-              <div style={{fontSize:13,color:"#999",lineHeight:1.6}}>
-                <div><b style={{color:"#777"}}>Nama:</b> {o.customer?.name}</div>
-                <div><b style={{color:"#777"}}>WA:</b> {o.customer?.contact}</div>
-                <div><b style={{color:"#777"}}>Alamat:</b> {o.customer?.address}</div>
+              <div style={{fontSize:13,color:"#a1937f",lineHeight:1.6}}>
+                <div><b style={{color:"#867763"}}>Nama:</b> {o.customer?.name}</div>
+                <div><b style={{color:"#867763"}}>WA:</b> {o.customer?.contact}</div>
+                <div><b style={{color:"#867763"}}>Alamat:</b> {o.customer?.address}</div>
               </div>
             </DS>
 
@@ -843,10 +843,10 @@ function ORow({o,exp,toggle,onVerify,onShip,onUndoShip,onCancel,onSaveNotes,busy
             {!isCancelled&&(
               <DS t="Pengiriman">
                 {isShipped?(
-                  <div style={{fontSize:13,color:"#aaa",lineHeight:1.7}}>
-                    <div><b style={{color:"#777"}}>Status:</b> <span style={{color:"#5a9a7a"}}>Dikirim {o.shippedAt?fmtD(o.shippedAt):""}</span></div>
-                    {o.trackingCourier&&<div><b style={{color:"#777"}}>Courier:</b> {o.trackingCourier}</div>}
-                    {o.trackingNumber&&<div><b style={{color:"#777"}}>No. Resi:</b> <code style={{fontFamily:"monospace",color:"#e8e4df",background:"#1a1a1a",padding:"2px 6px",borderRadius:4,fontSize:12}}>{o.trackingNumber}</code></div>}
+                  <div style={{fontSize:13,color:"#b0a28e",lineHeight:1.7}}>
+                    <div><b style={{color:"#867763"}}>Status:</b> <span style={{color:"#5a9a7a"}}>Dikirim {o.shippedAt?fmtD(o.shippedAt):""}</span></div>
+                    {o.trackingCourier&&<div><b style={{color:"#867763"}}>Courier:</b> {o.trackingCourier}</div>}
+                    {o.trackingNumber&&<div><b style={{color:"#867763"}}>No. Resi:</b> <code style={{fontFamily:"monospace",color:"#e8e4df",background:"#261c12",padding:"2px 6px",borderRadius:4,fontSize:12}}>{o.trackingNumber}</code></div>}
                   </div>
                 ):(
                   <div>
@@ -854,7 +854,7 @@ function ORow({o,exp,toggle,onVerify,onShip,onUndoShip,onCancel,onSaveNotes,busy
                       <input value={courier} onChange={e=>setCourier(e.target.value)} placeholder="Courier (JNE / J&T / SiCepat / dll)" style={{...inpDark,flex:"1 1 180px"}}/>
                       <input value={resi} onChange={e=>setResi(e.target.value)} placeholder="No. resi" style={{...inpDark,flex:"1 1 180px"}}/>
                     </div>
-                    <p style={{fontSize:10.5,color:"#555",marginTop:4}}>Isi sebelum mark shipped. Customer akan lihat info ini di track page.</p>
+                    <p style={{fontSize:10.5,color:"#6e6154",marginTop:4}}>Isi sebelum mark shipped. Customer akan lihat info ini di track page.</p>
                   </div>
                 )}
               </DS>
@@ -925,11 +925,11 @@ function ORow({o,exp,toggle,onVerify,onShip,onUndoShip,onCancel,onSaveNotes,busy
                   <button
                     onClick={async e=>{e.stopPropagation();if(cancelReason.trim()&&await onCancel(cancelReason)){setConfirmCancel(false);setCancelReason("");}}}
                     disabled={busy||!cancelReason.trim()}
-                    style={{padding:"8px 16px",borderRadius:6,border:"none",background:cancelReason.trim()?"#7a2a20":"#262626",color:"#e8e4df",fontSize:12,fontWeight:600,cursor:cancelReason.trim()?"pointer":"not-allowed",opacity:busy?.5:1}}
+                    style={{padding:"8px 16px",borderRadius:6,border:"none",background:cancelReason.trim()?"#7a2a20":"#3a2b18",color:"#e8e4df",fontSize:12,fontWeight:600,cursor:cancelReason.trim()?"pointer":"not-allowed",opacity:busy?.5:1}}
                   >Konfirmasi cancel</button>
                   <button
                     onClick={e=>{e.stopPropagation();setConfirmCancel(false);setCancelReason("");}}
-                    style={{padding:"8px 16px",borderRadius:6,border:"1px solid #2a2a2a",background:"transparent",color:"#888",fontSize:12,fontWeight:600,cursor:"pointer"}}
+                    style={{padding:"8px 16px",borderRadius:6,border:"1px solid #3d2f1c",background:"transparent",color:"#948470",fontSize:12,fontWeight:600,cursor:"pointer"}}
                   >Batal</button>
                 </div>
               </div>
@@ -941,15 +941,15 @@ function ORow({o,exp,toggle,onVerify,onShip,onUndoShip,onCancel,onSaveNotes,busy
   );
 }
 
-function DS({t,children}:{t:string;children:ReactNode}){return(<div style={{marginBottom:14}}><div style={{fontSize:10,fontWeight:700,color:"#555",letterSpacing:.5,textTransform:"uppercase",marginBottom:6}}>{t}</div>{children}</div>);}
+function DS({t,children}:{t:string;children:ReactNode}){return(<div style={{marginBottom:14}}><div style={{fontSize:10,fontWeight:700,color:"#6e6154",letterSpacing:.5,textTransform:"uppercase",marginBottom:6}}>{t}</div>{children}</div>);}
 
 function KPI({label,value,accent,sub}:{label:string;value:string;accent:string;sub:string}){
   return(
-    <div style={{background:"#161616",borderRadius:14,padding:"18px 18px",border:"1px solid #1e1e1e",position:"relative",overflow:"hidden"}}>
+    <div style={{background:"#1f1710",borderRadius:14,padding:"18px 18px",border:"1px solid #2e2314",position:"relative",overflow:"hidden"}}>
       <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:accent,opacity:.7}}/>
-      <div style={{fontSize:10.5,color:"#555",fontWeight:600,letterSpacing:.5,textTransform:"uppercase",marginBottom:6}}>{label}</div>
+      <div style={{fontSize:10.5,color:"#6e6154",fontWeight:600,letterSpacing:.5,textTransform:"uppercase",marginBottom:6}}>{label}</div>
       <div style={{fontSize:24,fontWeight:700,color:accent,lineHeight:1.1}}>{value}</div>
-      <div style={{fontSize:11,color:"#666",marginTop:5}}>{sub}</div>
+      <div style={{fontSize:11,color:"#7a6c5d",marginTop:5}}>{sub}</div>
     </div>
   );
 }
@@ -977,8 +977,8 @@ function RevenueChart({buckets}:{buckets:{date:Date;revenue:number;count:number}
         {/* Y-axis grid */}
         {[0,.25,.5,.75,1].map(t=>(
           <g key={t}>
-            <line x1={pl} y1={pt+ch*(1-t)} x2={w-pr} y2={pt+ch*(1-t)} stroke="#222" strokeWidth=".7" strokeDasharray="3 5"/>
-            <text x={pl-8} y={pt+ch*(1-t)+3} fill="#555" fontSize="9" textAnchor="end">{t===0?"0":shortRp(max*t)}</text>
+            <line x1={pl} y1={pt+ch*(1-t)} x2={w-pr} y2={pt+ch*(1-t)} stroke="#33291a" strokeWidth=".7" strokeDasharray="3 5"/>
+            <text x={pl-8} y={pt+ch*(1-t)+3} fill="#6e6154" fontSize="9" textAnchor="end">{t===0?"0":shortRp(max*t)}</text>
           </g>
         ))}
         {/* Area + line */}
@@ -994,12 +994,12 @@ function RevenueChart({buckets}:{buckets:{date:Date;revenue:number;count:number}
         {hover!==null&&points[hover]&&(
           <g pointerEvents="none">
             <line x1={points[hover].x} y1={pt} x2={points[hover].x} y2={pt+ch} stroke="#7faa80" strokeWidth="1" strokeDasharray="2 3" opacity=".5"/>
-            <circle cx={points[hover].x} cy={points[hover].y} r="5" fill="#161616" stroke="#7faa80" strokeWidth="2"/>
+            <circle cx={points[hover].x} cy={points[hover].y} r="5" fill="#1f1710" stroke="#7faa80" strokeWidth="2"/>
           </g>
         )}
         {/* X-axis labels */}
         {points.map((p,i)=>i%labelStep===0||i===n-1?(
-          <text key={i} x={p.x} y={h-12} fill="#555" fontSize="9" textAnchor="middle">{p.date.getDate()}/{p.date.getMonth()+1}</text>
+          <text key={i} x={p.x} y={h-12} fill="#6e6154" fontSize="9" textAnchor="middle">{p.date.getDate()}/{p.date.getMonth()+1}</text>
         ):null)}
         {/* Tooltip */}
         {hover!==null&&points[hover]&&(()=>{
@@ -1009,10 +1009,10 @@ function RevenueChart({buckets}:{buckets:{date:Date;revenue:number;count:number}
           const ty=Math.max(pt,p.y-th-10);
           return(
             <g pointerEvents="none">
-              <rect x={tx} y={ty} width={tw} height={th} rx="6" fill="#0a0a0a" stroke="#2a2a2a" strokeWidth="1"/>
-              <text x={tx+10} y={ty+15} fill="#666" fontSize="9">{p.date.toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"numeric"})}</text>
+              <rect x={tx} y={ty} width={tw} height={th} rx="6" fill="#0a0a0a" stroke="#3d2f1c" strokeWidth="1"/>
+              <text x={tx+10} y={ty+15} fill="#7a6c5d" fontSize="9">{p.date.toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"numeric"})}</text>
               <text x={tx+10} y={ty+30} fill="#7faa80" fontSize="11.5" fontWeight="700">{rp(p.revenue)}</text>
-              <text x={tx+tw-10} y={ty+30} fill="#555" fontSize="10" textAnchor="end">{p.count} order</text>
+              <text x={tx+tw-10} y={ty+30} fill="#6e6154" fontSize="10" textAnchor="end">{p.count} order</text>
             </g>
           );
         })()}
@@ -1030,28 +1030,28 @@ function StatusDonut({shipped,pending}:{shipped:number;pending:number}){
   return(
     <div style={{display:"flex",alignItems:"center",gap:20,flexWrap:"wrap"}}>
       <svg width="170" height="170" viewBox="0 0 170 170" style={{flexShrink:0}}>
-        <circle cx={cx} cy={cy} r={r} fill="none" stroke="#0f0f0f" strokeWidth={sw}/>
+        <circle cx={cx} cy={cy} r={r} fill="none" stroke="#171009" strokeWidth={sw}/>
         {total>0&&(<>
           <circle cx={cx} cy={cy} r={r} fill="none" stroke="#5a9a7a" strokeWidth={sw} strokeDasharray={`${C*sFrac} ${C}`} strokeLinecap="butt" transform={`rotate(-90 ${cx} ${cy})`} style={{transition:"stroke-dasharray .6s ease"}}/>
           <circle cx={cx} cy={cy} r={r} fill="none" stroke="#e8a838" strokeWidth={sw} strokeDasharray={`${C*pFrac} ${C}`} strokeDashoffset={-C*sFrac} strokeLinecap="butt" transform={`rotate(-90 ${cx} ${cy})`} style={{transition:"all .6s ease"}}/>
         </>)}
         <text x={cx} y={cy-2} textAnchor="middle" fill="#e8e4df" fontSize="28" fontWeight="700" fontFamily="var(--font-dm-sans),sans-serif">{total}</text>
-        <text x={cx} y={cy+16} textAnchor="middle" fill="#555" fontSize="10" fontFamily="var(--font-dm-sans),sans-serif" letterSpacing="1">ORDERS</text>
+        <text x={cx} y={cy+16} textAnchor="middle" fill="#6e6154" fontSize="10" fontFamily="var(--font-dm-sans),sans-serif" letterSpacing="1">ORDERS</text>
       </svg>
       <div style={{flex:1,minWidth:120,display:"flex",flexDirection:"column",gap:12}}>
         <div>
           <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
             <span style={{width:10,height:10,borderRadius:2,background:"#5a9a7a"}}/>
-            <span style={{fontSize:11.5,color:"#aaa"}}>Shipped</span>
+            <span style={{fontSize:11.5,color:"#b0a28e"}}>Shipped</span>
           </div>
-          <div style={{fontSize:18,fontWeight:700,color:"#5a9a7a"}}>{shipped}<span style={{fontSize:11,color:"#555",fontWeight:500,marginLeft:6}}>{total?`${((sFrac)*100).toFixed(0)}%`:""}</span></div>
+          <div style={{fontSize:18,fontWeight:700,color:"#5a9a7a"}}>{shipped}<span style={{fontSize:11,color:"#6e6154",fontWeight:500,marginLeft:6}}>{total?`${((sFrac)*100).toFixed(0)}%`:""}</span></div>
         </div>
         <div>
           <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
             <span style={{width:10,height:10,borderRadius:2,background:"#e8a838"}}/>
-            <span style={{fontSize:11.5,color:"#aaa"}}>Pending</span>
+            <span style={{fontSize:11.5,color:"#b0a28e"}}>Pending</span>
           </div>
-          <div style={{fontSize:18,fontWeight:700,color:"#e8a838"}}>{pending}<span style={{fontSize:11,color:"#555",fontWeight:500,marginLeft:6}}>{total?`${((pFrac)*100).toFixed(0)}%`:""}</span></div>
+          <div style={{fontSize:18,fontWeight:700,color:"#e8a838"}}>{pending}<span style={{fontSize:11,color:"#6e6154",fontWeight:500,marginLeft:6}}>{total?`${((pFrac)*100).toFixed(0)}%`:""}</span></div>
         </div>
       </div>
     </div>

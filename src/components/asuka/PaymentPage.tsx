@@ -107,7 +107,7 @@ export function PaymentPage({ grandTotal, proof, proofName, handleProof, setProo
               transition: "all 0.2s",
             }}
           >
-            <div style={{ color: "var(--ink-soft)", marginBottom: 10 }}>{I.upload}</div>
+            <div style={{ color: "var(--ink-soft)", marginBottom: 10, display: "flex", justifyContent: "center" }}>{I.upload}</div>
             <div style={{ fontSize: 14, fontWeight: 600, color: "var(--ink)" }}>Drop or tap to choose screenshot</div>
             <div style={{ fontSize: 11, color: "var(--ink-soft)", marginTop: 6, fontStyle: "italic" }}>JPG, PNG · max 5MB</div>
           </div>
